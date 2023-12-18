@@ -1,4 +1,4 @@
-import { createAction } from '@reduxjs/toolkit';
+import { createAction, createReducer } from '@reduxjs/toolkit';
 
 // Actions
 
@@ -11,63 +11,67 @@ console.log(test({ task: 'Task 1' }));
 //   return { type: ADD_TASK, payload: { task: task } };
 // };
 
-// export const removeTask = (id) => {
-//   return { type: REMOVE_TASK, payload: { id: id } };
-// };
-
-// export const completeTask = (id) => {
-//   return { type: COMPLETE_TASK, payload: { id: id } };
-// };
-
-export const fetchTodo = () => async (dispatch) => {
-  const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
-  const task = await response.json();
-  dispatch(addTask(task.title));
-};
-
 // Reducer
 
 let id = 0;
 
-export default function reducer(state = [], action) {
-  switch (action.type) {
-    case addTask.type:
-      return [
-        ...state,
-        {
-          id: ++id,
-          task: action.payload.task,
-          completed: false,
-        },
-      ];
-    case removeTask.type:
-      return state.filter((task) => task.id !== action.payload.id);
+export default createReducer([], {
+  [addTask.type]: (state, action) => {
+    state.push({
+      id: ++id,
+      task: action.payload.task,
+      completed: false,
+    });
+  },
+  [removeTask.type]: (state, action) => {
+    const index = state.findIndex((task) => task.id === action.payload.id);
+    state.splice(index, 1);
+  },
+  [completeTask.type]: (state, action) => {
+    const index = state.findIndex((task) => task.id === action.payload.id);
+    state[index].completed = true;
+  },
+});
 
-    case completeTask.type:
-      return state.map((task) =>
-        task.id === action.payload.id
-          ? {
-              ...task,
-              completed: true,
-            }
-          : task,
-      );
+// export default function reducer(state = [], action) {
+//   switch (action.type) {
+//     case addTask.type:
+//       return [
+//         ...state,
+//         {
+//           id: ++id,
+//           task: action.payload.task,
+//           completed: false,
+//         },
+//       ];
+//     case removeTask.type:
+//       return state.filter((task) => task.id !== action.payload.id);
 
-    default:
-      return state;
-  }
+//     case completeTask.type:
+//       return state.map((task) =>
+//         task.id === action.payload.id
+//           ? {
+//               ...task,
+//               completed: true,
+//             }
+//           : task,
+//       );
 
-  // if (action.type === 'ADD_TASK') {
-  //   return [
-  //     ...state,
-  //     {
-  //       id: ++id,
-  //       task: action.payload.task,
-  //       completed: false,
-  //     },
-  //   ];
-  // } else if (action.type === 'REMOVE_TASK') {
-  //   return state.filter((task) => task.id !== action.payload.id);
-  // }
-  // return state;
-}
+//     default:
+//       return state;
+//   }
+
+// if (action.type === 'ADD_TASK') {
+//   return [
+//     ...state,
+//     {
+//       id: ++id,
+//       task: action.payload.task,
+//       completed: false,
+//     },
+//   ];
+// } else if (action.type === 'REMOVE_TASK') {
+//   return state.filter((task) => task.id !== action.payload.id);
+// }
+// return state;
+// }
