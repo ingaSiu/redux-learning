@@ -1,21 +1,23 @@
-// Action types section
-const ADD_TASK = 'ADD_TASK';
-const REMOVE_TASK = 'REMOVE_TASK';
-const COMPLETE_TASK = 'COMPLETE_TASK';
+import { createAction } from '@reduxjs/toolkit';
 
 // Actions
 
-export const addTask = (task) => {
-  return { type: ADD_TASK, payload: { task: task } };
-};
+export const addTask = createAction('ADD_TASK');
+export const removeTask = createAction('REMOVE_TASK');
+export const completeTask = createAction('COMPLETE_TASK');
+console.log(test({ task: 'Task 1' }));
 
-export const removeTask = (id) => {
-  return { type: REMOVE_TASK, payload: { id: id } };
-};
+// export const addTask = (task) => {
+//   return { type: ADD_TASK, payload: { task: task } };
+// };
 
-export const completeTask = (id) => {
-  return { type: COMPLETE_TASK, payload: { id: id } };
-};
+// export const removeTask = (id) => {
+//   return { type: REMOVE_TASK, payload: { id: id } };
+// };
+
+// export const completeTask = (id) => {
+//   return { type: COMPLETE_TASK, payload: { id: id } };
+// };
 
 export const fetchTodo = () => async (dispatch) => {
   const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
@@ -29,7 +31,7 @@ let id = 0;
 
 export default function reducer(state = [], action) {
   switch (action.type) {
-    case ADD_TASK:
+    case addTask.type:
       return [
         ...state,
         {
@@ -38,10 +40,10 @@ export default function reducer(state = [], action) {
           completed: false,
         },
       ];
-    case REMOVE_TASK:
+    case removeTask.type:
       return state.filter((task) => task.id !== action.payload.id);
 
-    case COMPLETE_TASK:
+    case completeTask.type:
       return state.map((task) =>
         task.id === action.payload.id
           ? {
