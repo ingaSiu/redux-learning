@@ -1,6 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import reducer from './tasks';
+import employeeReducer from './employess';
+import taskReducer from './tasks';
 
-const store = configureStore({ reducer });
+const store = configureStore({
+  reducer: {
+    tasks: taskReducer,
+    employees: employeeReducer,
+  },
+});
 
 export default store;
