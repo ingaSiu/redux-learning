@@ -17,5 +17,14 @@ import store from './store/configureStore';
 
 // gettingTasks();
 
-store.dispatch(fetchTasks());
+// store.dispatch(fetchTasks());
+
+store.dispatch({
+  type: 'apiRequest',
+  payload: {
+    url: '/tasks',
+    onSuccess: 'tasks/getTasks',
+    onError: 'SHOW_ERROR',
+  },
+});
 
