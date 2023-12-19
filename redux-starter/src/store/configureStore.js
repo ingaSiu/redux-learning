@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import employeeReducer from './employess';
-import error from '../middleware/error';
-import log from '../middleware/log';
+import error from './middleware/error';
+import log from './middleware/log';
 import taskReducer from './tasks';
 
 // import logger from 'redux-logger';
