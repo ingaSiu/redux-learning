@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import axios from 'axios';
+import axios from '../utils/http';
 
 let id = 0;
 
@@ -12,7 +12,7 @@ const initialState = {
 
 export const fetchTasks = createAsyncThunk('fetchTasks', async (a, { rejectWithValue }) => {
   try {
-    const response = await axios.get('http://localhost:5000/api/tasks');
+    const response = await axios.get('/tasks');
     return { tasks: response.data };
   } catch (error) {
     return rejectWithValue({ error: error.message });
