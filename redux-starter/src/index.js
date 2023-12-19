@@ -1,8 +1,8 @@
+import { apiCallBegan } from './store/api';
 import axios from 'axios';
 import { fetchTasks } from './store/tasks';
 import { getTasks } from './store/tasks';
 import store from './store/configureStore';
-
 // const gettingTasks = async () => {
 //   try {
 //     //calling Api
@@ -19,13 +19,12 @@ import store from './store/configureStore';
 
 // store.dispatch(fetchTasks());
 
-store.dispatch({
-  type: 'apiRequest',
-  payload: {
+store.dispatch(
+  apiCallBegan({
     url: '/tasks',
     onStart: 'tasks/apiRequested',
     onSuccess: 'tasks/getTasks',
     onError: 'tasks/apiRequestFailed',
-  },
-});
+  }),
+);
 
