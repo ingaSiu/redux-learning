@@ -98,3 +98,11 @@ export const updateCompleted = (task) =>
     data: task,
     onSuccess: completeTask.type,
   });
+
+export const deleteTask = (task) =>
+  apiCallBegan({
+    // /tasks/6
+    url: `${url}/${task.id}`,
+    method: 'DELETE',
+    onSuccess: removeTask.type,
+  });

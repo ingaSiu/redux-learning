@@ -1,4 +1,4 @@
-import { loadTasks, updateCompleted } from './store/tasks';
+import { deleteTask, loadTasks, updateCompleted } from './store/tasks';
 
 import { addNewTask } from './store/tasks';
 import axios from 'axios';
@@ -26,3 +26,5 @@ store.dispatch(loadTasks());
 //store.dispatch(addNewTask({ task: 'Complete this exercise' }));
 
 store.dispatch(updateCompleted({ id: 6, completed: true }));
+
+store.dispatch(deleteTask({ id: 7 }));
