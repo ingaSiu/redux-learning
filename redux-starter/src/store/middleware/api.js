@@ -20,7 +20,8 @@ const api =
 
       dispatch({ type: onSuccess, payload: response.data });
     } catch (error) {
-      dispatch({ type: onError, payload: { error: error.message } });
+      if (error) dispatch({ type: onError, payload: { error: error.message } });
+
       dispatch({ type: 'SHOW_ERROR', payload: { error: error.message } });
     }
   };
