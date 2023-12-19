@@ -1,3 +1,4 @@
+import api from './middleware/api';
 import { configureStore } from '@reduxjs/toolkit';
 import employeeReducer from './employess';
 import error from './middleware/error';
@@ -11,7 +12,7 @@ const store = configureStore({
     tasks: taskReducer,
     employees: employeeReducer,
   },
-  middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), log, error],
+  middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), api, error],
 });
 
 export default store;
