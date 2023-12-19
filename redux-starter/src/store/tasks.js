@@ -45,7 +45,7 @@ const taskSlice = createSlice({
     },
     completeTask: (state, action) => {
       const index = state.tasks.findIndex((task) => task.id === action.payload.id);
-      state.tasks[index].completed = true;
+      state.tasks[index].completed = action.payload.completed;
     },
   },
   // extraReducers: {
@@ -88,4 +88,13 @@ export const addNewTask = (task) =>
     method: 'POST',
     data: task,
     onSuccess: addTask.type,
+  });
+
+export const updateCompleted = (task) =>
+  apiCallBegan({
+    // /tasks/6
+    url: `${url}/${task.id}`,
+    method: 'PATCH',
+    data: task,
+    onSuccess: completeTask.type,
   });

@@ -1,8 +1,9 @@
+import { loadTasks, updateCompleted } from './store/tasks';
+
 import { addNewTask } from './store/tasks';
 import axios from 'axios';
 import { fetchTasks } from './store/tasks';
 import { getTasks } from './store/tasks';
-import { loadTasks } from './store/tasks';
 import store from './store/configureStore';
 
 // const gettingTasks = async () => {
@@ -22,5 +23,6 @@ import store from './store/configureStore';
 // store.dispatch(fetchTasks());
 
 store.dispatch(loadTasks());
-store.dispatch(addNewTask({ task: 'Complete this exercise' }));
+//store.dispatch(addNewTask({ task: 'Complete this exercise' }));
 
+store.dispatch(updateCompleted({ id: 6, completed: true }));
